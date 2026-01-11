@@ -1,16 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import LandingPage from './pages/LandingPage';
+import ProductDetail from './pages/ProductDetail';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [selectedProductId, setSelectedProductId] = useState(null);
 
   return (
-    <>
-      <h1>E commerce Website</h1>
-    </>
-  )
+    <div className="flex flex-col min-h-screen font-sans bg-[#eff0f5]">
+      <Navbar />
+      
+      <main className="grow">
+        {selectedProductId ? (
+          <ProductDetail 
+            productId={selectedProductId} 
+            onBack={() => setSelectedProductId(null)} 
+          />
+        ) : (
+          <LandingPage onProductSelect={(id) => setSelectedProductId(id)} />
+        )}
+      </main>
+
+      <Footer />
+    </div>
+  );
 }
 
-export default App
+export default App;
